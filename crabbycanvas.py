@@ -115,22 +115,23 @@ while(True):
         print("coord1 = "+str(coords[1]))
         if(coords[0] < int(x) < coords[2] and coords[1] < int(y) < coords[3]): #for red
             print("running")
-            if cv2.waitKey(1) & 0xFF == ord("p"):
+            if cv2.waitKey(1) & 0xFF == ord("i"):
                 crrclr = "red"
-                draw = True
+
         if(coords[4] < int(x) < coords[6] and coords[5] < int(y) < coords[7]): #for blue
             print("running")
-            if cv2.waitKey(1) & 0xFF == ord("p"):
+            if cv2.waitKey(1) & 0xFF == ord("i"):
                 crrclr = "blue"
-                draw = True
+
         if(coords[8] < int(x) < coords[10] and coords[9] < int(y) < coords[11]): # for yellow
             print("running")
-            if cv2.waitKey(1) & 0xFF == ord("p"):
+            if cv2.waitKey(1) & 0xFF == ord("i"):
                 crrclr = "yellow"
-                draw = True
+
         cv2.putText(frame, crrclr, (250, 250), font, 0.9, (0, 0, 255), 2, cv2.LINE_AA)
         # print(crrclr)
-
+        if cv2.waitKey(1) & 0xFF == ord("p"):
+            draw = True
         if (crrclr == "red"):
             color = (0,0,255)
         elif (crrclr == "blue"):
@@ -142,8 +143,12 @@ while(True):
             # x = 1280 - x
             cv2.circle(imgCanvas, (int(x), int(y)), int(bobs_crad), color, -1)
 
+        if cv2.waitKey(1) & 0xFF == ord("o"):
+            imgCanvas = np.zeros((720, 1280, 3), np.uint8)
+
         if cv2.waitKey(1) & 0xFF == ord("l"):
             draw = False
+
         ypos = 0
         xpos = 0
         if int(y) <= 100:
@@ -164,9 +169,9 @@ while(True):
 
 
     frame = cv2.add(imgCanvas, frame)
-    cv2.imshow('filtered', filtered)
     cv2.imshow("realimage", frame)
-    cv2.imshow("canvas", imgCanvas)
+    # cv2.imshow('filtered', filtered) #just the color filtered frame, used for fine tuning the color recognizer
+    # cv2.imshow("canvas", imgCanvas) #just the canvas
     # left off here ****************************************************************
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
